@@ -1,0 +1,145 @@
+<?php
+/**
+ * Challenge 3: Blind Injection
+ * SQL Injection Training Platform
+ */
+
+require_once '../config.php';
+require_once '../includes/db.php';
+require_once '../includes/functions.php';
+
+if (!isLoggedIn()) {
+    redirect(BASE_URL . '/login.php');
+}
+
+$challenge_id = 3;
+$conn = getConnection();
+
+$stmt = $conn->prepare("SELECT * FROM challenges WHERE id = ?");
+$stmt->bind_param("i", $challenge_id);
+$stmt->execute();
+$challenge = $stmt->get_result()->fetch_assoc();
+
+$user_id = getCurrentUserId();
+$stmt = $conn->prepare("SELECT * FROM user_progress WHERE user_id = ? AND challenge_id = ?");
+$stmt->bind_param("ii", $user_id, $challenge_id);
+$stmt->execute();
+$progress_result = $stmt->get_result();
+
+$completed = false;
+$show_flag = false;
+
+if ($progress_result->num_rows > 0) {
+    $progress = $progress_result->fetch_assoc();
+    $completed = $progress['completed'];
+}
+
+if (isset($_POST['mark_complete'])) {
+    if ($progress_result->num_rows > 0) {
+        $stmt = $conn->prepare("UPDATE user_progress SET completed = 1, completed_at = NOW() WHERE user_id = ? AND challenge_id = ?");
+    } else {
+        $stmt = $conn->prepare("INSERT INTO user_progress (user_id, challenge_id, completed, completed_at) VALUES (?, ?, 1, NOW())");
+    }
+    $stmt->bind_param("ii", $user_id, $challenge_id);
+    $stmt->execute();
+    $completed = true;
+    $show_flag = true;
+}
+
+closeConnection($conn);
+
+displayHeader('Challenge 3');
+?>
+
+<div class="card">
+    <h2>🎯 Challenge 3: Blind Injection</h2>
+    <span class="difficulty-badge difficulty-medium">Medium</span>
+    <p><strong>Points:</strong> <?php echo $challenge['points']; ?></p>
+    
+    <?php if ($completed): ?>
+        <div class="success-box">
+            <p><strong>✅ Challenge Completed!</strong></p>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="card">
+    <h3>📋 Objective</h3>
+    <p><?php echo htmlspecialchars($challenge['description']); ?></p>
+    
+    <h3>🎯 Goal</h3>
+    <p>Use boolean-based blind SQL injection to extract the admin password character by character.</p>
+    
+    <h3>🔗 Target</h3>
+    <p><a href="<?php echo BASE_URL; ?>/<?php echo $challenge['target_page']; ?>?id=1" class="btn btn-primary" target="_blank">
+        Go to <?php echo htmlspecialchars($challenge['target_page']); ?>
+    </a></p>
+</div>
+
+<div class="card">
+    <h3>💡 Hints</h3>
+    <div id="hint-container">
+        <button onclick="getHint(<?php echo $challenge_id; ?>, 1)" class="btn btn-warning">Get Hint 1</button>
+        <button onclick="getHint(<?php echo $challenge_id; ?>, 2)" class="btn btn-warning">Get Hint 2</button>
+        <button onclick="getHint(<?php echo $challenge_id; ?>, 3)" class="btn btn-warning">Get Hint 3</button>
+        <button onclick="getHint(<?php echo $challenge_id; ?>, 4)" class="btn btn-danger">Show Solution</button>
+    </div>
+</div>
+
+<div class="card">
+    <h3>🔍 Vulnerable Code</h3>
+    <p>This is the vulnerable code in profile.php:</p>
+    <div class="code-display">
+        <pre>$user_id = $_GET['id'];  // No validation!
+
+// No quotes around ID - allows boolean injection
+$query = "SELECT * FROM users WHERE id = $user_id";
+
+$result = $conn->query($query);
+
+if ($result && $result->num_rows > 0) {
+    // Display user data
+} else {
+    echo "User not found";  // Different response!
+}</pre>
+    </div>
+</div>
+
+<div class="card">
+    <h3>📚 Boolean-Based Blind Injection</h3>
+    <p>When you can't see query results directly, use true/false conditions:</p>
+    
+    <h4>Test Basic Conditions:</h4>
+    <code>profile.php?id=1 AND 1=1</code> → Shows user (TRUE)<br>
+    <code>profile.php?id=1 AND 1=2</code> → User not found (FALSE)
+    
+    <h4>Extract Password Character by Character:</h4>
+    <code>profile.php?id=1 AND SUBSTRING((SELECT password FROM users WHERE id=1),1,1)='a'</code><br>
+    <code>profile.php?id=1 AND SUBSTRING((SELECT password FROM users WHERE id=1),1,1)='b'</code><br>
+    <p>Keep testing until you find the correct character, then move to position 2, 3, etc.</p>
+    
+    <h4>Automate with Script:</h4>
+    <p>For real-world scenarios, you'd write a script to automate this process.</p>
+</div>
+
+<div class="card">
+    <h3>✅ Mark as Complete</h3>
+    <p>Once you've extracted the admin password using blind injection, mark this challenge as complete:</p>
+    <form method="POST">
+        <button type="submit" name="mark_complete" class="btn btn-success">Mark Challenge as Complete</button>
+    </form>
+    
+    <?php if ($show_flag): ?>
+        <div class="success-box" style="margin-top: 20px;">
+            <h3>🎉 Flag Captured!</h3>
+            <p><strong><?php echo htmlspecialchars($challenge['flag']); ?></strong></p>
+            <p>Admin password is: <code>admin123</code></p>
+        </div>
+    <?php endif; ?>
+</div>
+
+<div class="card">
+    <p><a href="index.php" class="btn btn-primary">Back to Challenges</a></p>
+</div>
+
+<?php displayFooter(); ?>
