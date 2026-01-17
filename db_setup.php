@@ -136,7 +136,7 @@ if ($conn->query($sql) === TRUE) {
 // Create activity_logs table
 $sql = "CREATE TABLE activity_logs (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    user_id INT,
+    user_id INT NULL,
     username VARCHAR(50),
     action VARCHAR(100),
     query_executed TEXT,
@@ -144,7 +144,7 @@ $sql = "CREATE TABLE activity_logs (
     ip_address VARCHAR(45),
     user_agent TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE SET NULL
 )";
 
 if ($conn->query($sql) === TRUE) {
