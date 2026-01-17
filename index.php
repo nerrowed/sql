@@ -88,18 +88,6 @@ displayHeader('Home');
 </div>
 
 <div class="card">
-    <h2>⚖️ Ethical Guidelines</h2>
-    <p><strong>This platform is for educational purposes only.</strong> By using this platform, you agree to:</p>
-    <ul>
-        <li>Use the knowledge gained only in authorized environments</li>
-        <li>Never attempt SQL injection on systems you don't own or have explicit permission to test</li>
-        <li>Practice responsible disclosure if you discover vulnerabilities</li>
-        <li>Respect privacy and data protection laws</li>
-        <li>Use your skills to improve security, not to cause harm</li>
-    </ul>
-</div>
-
-<div class="card">
     <h2>📚 Resources</h2>
     <ul>
         <li><a href="docs/techniques.php">SQL Injection Techniques Guide</a></li>
