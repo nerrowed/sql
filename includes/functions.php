@@ -73,7 +73,7 @@ function displayHeader($title = '') {
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title><?php echo htmlspecialchars($pageTitle); ?></title>
-        <link rel="stylesheet" href="<?php echo BASE_URL; ?>/assets/css/style.css">
+        <link rel="stylesheet" href="/sql/assets/css/style.css">
     </head>
     <body>
         <div class="warning-banner">
@@ -112,7 +112,7 @@ function displayFooter() {
             <p><a href="<?php echo BASE_URL; ?>/docs/techniques.php">SQL Injection Techniques</a> | 
                <a href="<?php echo BASE_URL; ?>/docs/secure_examples.php">Secure Code Examples</a></p>
         </footer>
-        <script src="<?php echo BASE_URL; ?>/assets/js/main.js"></script>
+        <script src="/sql/assets/js/app.js"></script>
     </body>
     </html>
     <?php

@@ -15,7 +15,7 @@ define('DB_NAME', 'sqli_training_db');
 
 // Application settings
 define('APP_NAME', 'SQL Injection Training Platform');
-define('BASE_URL', 'http://localhost/sql-injection-training');
+define('BASE_URL', '/sql');
 
 // Error reporting (enabled for educational purposes)
 error_reporting(E_ALL);

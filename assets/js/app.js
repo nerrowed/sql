@@ -11,7 +11,7 @@ function confirmAction(message) {
 // AJAX function to get hints
 function getHint(challengeId, hintLevel) {
     const xhr = new XMLHttpRequest();
-    const baseUrl = window.location.origin + '/sql-injection-training';
+    const baseUrl = '/sql';
     xhr.open('POST', baseUrl + '/hints/get_hint.php', true);
     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
     
