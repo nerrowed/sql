@@ -32,37 +32,264 @@ Platform training cybersecurity berbasis web yang sengaja dibuat vulnerable terh
 - Apache web server with mod_php
 - mysqli PHP extension
 
-### Setup Steps
+### Setup on Ubuntu Server
 
-1. **Clone or download this repository**
+#### 1. Update System
+```bash
+sudo apt update
+sudo apt upgrade -y
+```
+
+#### 2. Install Apache Web Server
+```bash
+sudo apt install apache2 -y
+sudo systemctl start apache2
+sudo systemctl enable apache2
+```
+
+#### 3. Install MySQL Server
+```bash
+sudo apt install mysql-server -y
+sudo systemctl start mysql
+sudo systemctl enable mysql
+
+# Secure MySQL installation (optional but recommended)
+sudo mysql_secure_installation
+```
+
+#### 4. Install PHP and Required Extensions
+```bash
+sudo apt install php libapache2-mod-php php-mysql -y
+
+# Verify PHP installation
+php -v
+```
+
+#### 5. Deploy Application Files
+```bash
+# Navigate to web root
+cd /var/www/html
+
+# Create project directory
+sudo mkdir sql-injection-training
+cd sql-injection-training
+
+# Copy all your project files here
+# Or clone from repository:
+# sudo git clone <your-repo-url> .
+
+# Set proper permissions
+sudo chown -R www-data:www-data /var/www/html/sql-injection-training
+sudo chmod -R 755 /var/www/html/sql-injection-training
+```
+
+#### 6. Configure MySQL Database
+```bash
+# Login to MySQL
+sudo mysql -u root -p
+
+# Create database and user
+CREATE DATABASE sqli_training_db;
+CREATE USER 'sqli_training'@'localhost' IDENTIFIED BY 'training_password';
+GRANT ALL PRIVILEGES ON sqli_training_db.* TO 'sqli_training'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;
+```
+
+#### 7. Configure Application
+Edit `config.php` and update database credentials:
+```bash
+sudo nano /var/www/html/sql-injection-training/config.php
+```
+
+Update these lines:
+```php
+define('DB_HOST', 'localhost');
+define('DB_USER', 'sqli_training');
+define('DB_PASS', 'training_password');
+define('DB_NAME', 'sqli_training_db');
+define('BASE_URL', 'http://your-server-ip/sql-injection-training');
+```
+
+#### 8. Configure Apache (Optional - Virtual Host)
+```bash
+sudo nano /etc/apache2/sites-available/sqli-training.conf
+```
+
+Add this configuration:
+```apache
+<VirtualHost *:80>
+    ServerAdmin admin@localhost
+    DocumentRoot /var/www/html/sql-injection-training
+    ServerName your-domain.com
+    
+    <Directory /var/www/html/sql-injection-training>
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+    </Directory>
+    
+    ErrorLog ${APACHE_LOG_DIR}/sqli-training-error.log
+    CustomLog ${APACHE_LOG_DIR}/sqli-training-access.log combined
+</VirtualHost>
+```
+
+Enable the site:
+```bash
+sudo a2ensite sqli-training.conf
+sudo systemctl reload apache2
+```
+
+#### 9. Setup Database Tables
+Open browser and navigate to:
+```
+http://your-server-ip/sql-injection-training/db_setup.php
+```
+
+This will create all tables and insert sample data.
+
+#### 10. Test Installation
+Navigate to:
+```
+http://your-server-ip/sql-injection-training/
+```
+
+Login with test accounts (see below).
+
+### Troubleshooting Ubuntu Server
+
+#### PHP Not Working
+```bash
+# Check if PHP module is enabled
+sudo a2enmod php7.4  # or php8.0, php8.1 depending on version
+sudo systemctl restart apache2
+```
+
+#### Permission Issues
+```bash
+# Fix file permissions
+sudo chown -R www-data:www-data /var/www/html/sql-injection-training
+sudo chmod -R 755 /var/www/html/sql-injection-training
+
+# If session issues occur
+sudo chmod 777 /var/lib/php/sessions
+```
+
+#### MySQL Connection Failed
+```bash
+# Check MySQL is running
+sudo systemctl status mysql
+
+# Test MySQL connection
+mysql -u sqli_training -p sqli_training_db
+
+# Check MySQL error logs
+sudo tail -f /var/log/mysql/error.log
+```
+
+#### Apache Not Starting
+```bash
+# Check Apache status
+sudo systemctl status apache2
+
+# Check Apache error logs
+sudo tail -f /var/log/apache2/error.log
+
+# Test Apache configuration
+sudo apache2ctl configtest
+```
+
+#### Firewall Configuration
+```bash
+# Allow HTTP traffic
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp  # if using HTTPS
+
+# Check firewall status
+sudo ufw status
+```
+
+### Security Considerations for Ubuntu Server
+
+⚠️ **CRITICAL: This is a training platform with intentional vulnerabilities!**
+
+1. **Network Isolation**
    ```bash
-   git clone <repository-url>
-   cd sql-injection-training
+   # Only allow access from specific IPs
+   sudo ufw allow from 192.168.1.0/24 to any port 80
    ```
 
-2. **Configure database connection**
-   - Edit `config.php` and update database credentials:
-   ```php
-   define('DB_HOST', 'localhost');
-   define('DB_USER', 'your_mysql_user');
-   define('DB_PASS', 'your_mysql_password');
-   define('DB_NAME', 'sqli_training_db');
+2. **Use VPN or Private Network**
+   - Deploy on internal network only
+   - Use VPN for remote access
+   - Never expose to public internet
+
+3. **Firewall Rules**
+   ```bash
+   # Block all incoming except SSH and HTTP from trusted IPs
+   sudo ufw default deny incoming
+   sudo ufw default allow outgoing
+   sudo ufw allow from YOUR_IP to any port 22
+   sudo ufw allow from YOUR_IP to any port 80
+   sudo ufw enable
    ```
 
-3. **Create MySQL user** (if needed)
-   ```sql
-   CREATE USER 'sqli_training'@'localhost' IDENTIFIED BY 'training_password';
-   GRANT ALL PRIVILEGES ON sqli_training_db.* TO 'sqli_training'@'localhost';
-   FLUSH PRIVILEGES;
+4. **Monitor Access**
+   ```bash
+   # Monitor Apache access logs
+   sudo tail -f /var/log/apache2/access.log
+   
+   # Monitor MySQL logs
+   sudo tail -f /var/log/mysql/mysql.log
    ```
 
-4. **Setup database**
-   - Navigate to `http://localhost/sql-injection-training/db_setup.php`
-   - This will create all tables and insert sample data
+### Quick Setup Script for Ubuntu
 
-5. **Start training!**
-   - Go to `http://localhost/sql-injection-training/`
-   - Login with test accounts (see below)
+Create a setup script:
+```bash
+sudo nano setup.sh
+```
+
+Add this content:
+```bash
+#!/bin/bash
+
+echo "Installing SQL Injection Training Platform..."
+
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Apache
+sudo apt install apache2 -y
+
+# Install MySQL
+sudo apt install mysql-server -y
+
+# Install PHP
+sudo apt install php libapache2-mod-php php-mysql -y
+
+# Start services
+sudo systemctl start apache2
+sudo systemctl start mysql
+sudo systemctl enable apache2
+sudo systemctl enable mysql
+
+# Create project directory
+sudo mkdir -p /var/www/html/sql-injection-training
+
+echo "Basic setup complete!"
+echo "Next steps:"
+echo "1. Copy your project files to /var/www/html/sql-injection-training"
+echo "2. Configure MySQL database"
+echo "3. Update config.php"
+echo "4. Run db_setup.php in browser"
+```
+
+Make it executable and run:
+```bash
+chmod +x setup.sh
+./setup.sh
+```
 
 ## Test Accounts
 

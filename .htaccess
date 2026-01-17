@@ -1,0 +1,65 @@
+# SQL Injection Training Platform - Apache Configuration
+# This file provides additional security and configuration
+
+# Enable RewriteEngine
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /sql-injection-training/
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Prevent access to sensitive files
+<FilesMatch "^(config\.php|\.git.*|\.env|composer\.(json|lock)|package\.json)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Protect .kiro directory (if exists)
+<DirectoryMatch "^/.*/\.kiro/">
+    Order allow,deny
+    Deny from all
+</DirectoryMatch>
+
+# Set default charset
+AddDefaultCharset UTF-8
+
+# Enable PHP error display (for educational purposes only)
+php_flag display_errors On
+php_value error_reporting E_ALL
+
+# Increase PHP limits (if needed)
+php_value upload_max_filesize 10M
+php_value post_max_size 10M
+php_value max_execution_time 300
+php_value max_input_time 300
+
+# Custom error pages (optional)
+# ErrorDocument 404 /sql-injection-training/404.php
+# ErrorDocument 500 /sql-injection-training/500.php
+
+# Security headers (minimal, since this is intentionally vulnerable)
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header set X-Frame-Options "SAMEORIGIN"
+    
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Compress text files
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript
+</IfModule>
+
+# Cache static files
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpg "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>

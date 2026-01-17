@@ -9,10 +9,35 @@
 require_once 'config.php';
 
 // Create connection without database selection first
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASS);
+// Try with config credentials first
+$conn = @new mysqli(DB_HOST, DB_USER, DB_PASS);
 
+// If connection fails, try with root without password (common in fresh MySQL installs)
 if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+    $conn = @new mysqli(DB_HOST, 'root', '');
+    
+    if ($conn->connect_error) {
+        die("<h2>Connection failed!</h2>
+        <p>Error: " . $conn->connect_error . "</p>
+        <h3>Solutions:</h3>
+        <ol>
+            <li><strong>Set MySQL root password:</strong>
+                <pre>sudo mysql -u root
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_password';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+            </li>
+            <li><strong>Or create the database user manually:</strong>
+                <pre>sudo mysql -u root
+CREATE DATABASE sqli_training_db;
+CREATE USER 'sqli_training'@'localhost' IDENTIFIED BY 'training_password';
+GRANT ALL PRIVILEGES ON sqli_training_db.* TO 'sqli_training'@'localhost';
+FLUSH PRIVILEGES;
+EXIT;</pre>
+            </li>
+            <li><strong>Then update config.php with the correct credentials</strong></li>
+        </ol>");
+    }
 }
 
 echo "<h2>SQL Injection Training Platform - Database Setup</h2>";
