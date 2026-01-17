@@ -10,8 +10,8 @@
 // Database connection settings
 define('DB_HOST', 'localhost');
 define('DB_USER', 'sqli_training');
-define('DB_PASS', 'training_password');
-define('DB_NAME', 'sqli_training_db');
+define('DB_PASS', 'sqli123');
+define('DB_NAME', 'sqli_lab');
 
 // Application settings
 define('APP_NAME', 'SQL Injection Training Platform');
