@@ -29,8 +29,8 @@ if (isset($_GET['message']) && $_GET['message'] == 'logged_out') {
 // Handle login form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get user input WITHOUT sanitization (VULNERABLE!)
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = isset($_POST['username']) ? $_POST['username'] : '';
+    $password = isset($_POST['password']) ? $_POST['password'] : '';
     
     // Build vulnerable SQL query using string concatenation
     // This is INTENTIONALLY VULNERABLE to SQL injection
@@ -41,38 +41,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     // Execute the vulnerable query
     $conn = getConnection();
-    $result = $conn->query($query);
     
-    // Log the attempt
-    $user_id = 0;
-    if ($result && $result->num_rows > 0) {
-        $user = $result->fetch_assoc();
-        $user_id = $user['id'];
-    }
-    
-    if ($result && $result->num_rows > 0) {
-        // Login successful
-        $user = $result->fetch_assoc();
+    try {
+        $result = $conn->query($query);
         
-        // Create session
-        $_SESSION['user_id'] = $user['id'];
-        $_SESSION['username'] = $user['username'];
-        $_SESSION['is_admin'] = $user['is_admin'];
+        // Log the attempt
+        $user_id = 0;
         
-        // Log successful login
-        logActivity($user['id'], 'LOGIN_SUCCESS', $query);
-        
-        // Update last login time
-        $update_query = "UPDATE users SET last_login = NOW() WHERE id = " . $user['id'];
-        $conn->query($update_query);
-        
-        // Redirect to challenges page
-        closeConnection($conn);
-        redirect(BASE_URL . '/challenges/index.php');
-    } else {
-        // Login failed
-        $error = 'Invalid username or password. Or maybe your SQL injection needs work? 😉';
-        logActivity($user_id, 'LOGIN_FAILED', $query);
+        if ($result && $result->num_rows > 0) {
+            // Login successful
+            $user = $result->fetch_assoc();
+            $user_id = $user['id'];
+            
+            // Create session
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['is_admin'] = $user['is_admin'];
+            
+            // Log successful login
+            logActivity($user['id'], 'LOGIN_SUCCESS', $query);
+            
+            // Update last login time
+            $update_query = "UPDATE users SET last_login = NOW() WHERE id = " . $user['id'];
+            $conn->query($update_query);
+            
+            // Redirect to challenges page
+            closeConnection($conn);
+            redirect(BASE_URL . '/challenges/index.php');
+        } else {
+            // Login failed
+            $error = 'Invalid username or password. Or maybe your SQL injection needs work? 😉';
+            logActivity($user_id, 'LOGIN_FAILED', $query);
+        }
+    } catch (mysqli_sql_exception $e) {
+        // SQL error (likely from injection attempt)
+        $error = 'SQL Error: ' . htmlspecialchars($e->getMessage());
+        logActivity(0, 'LOGIN_ERROR', $query);
     }
     
     closeConnection($conn);
