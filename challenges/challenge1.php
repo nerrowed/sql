@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenge 1: Authentication Bypass
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

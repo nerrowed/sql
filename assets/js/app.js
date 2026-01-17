@@ -1,5 +1,5 @@
 /**
- * SQL Injection Training Platform - JavaScript
+ * INSIDER Training Platform - JavaScript
  * For educational purposes only
  */
 

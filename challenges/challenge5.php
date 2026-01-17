@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenge 5: Privilege Escalation
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

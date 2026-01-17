@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenge 2: Data Extraction
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

@@ -1,7 +1,7 @@
 <?php
 /**
  * Secure Code Examples
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

@@ -1,7 +1,7 @@
 <?php
 /**
  * Activity Logs Viewer
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

@@ -1,12 +1,12 @@
 #!/bin/bash
 
-# SQL Injection Training Platform - Ubuntu Setup Script
+# INSIDER Training Platform - Ubuntu Setup Script
 # This script automates the installation process on Ubuntu Server
 
 set -e  # Exit on error
 
 echo "=========================================="
-echo "SQL Injection Training Platform"
+echo "INSIDER Training Platform"
 echo "Ubuntu Server Setup Script"
 echo "=========================================="
 echo ""
@@ -96,7 +96,7 @@ cat > /var/www/html/sql-injection-training/config.php.example <<'EOF'
 <?php
 /**
  * Database Configuration
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 // Database connection settings
@@ -106,7 +106,7 @@ define('DB_PASS', 'YOUR_PASSWORD_HERE');
 define('DB_NAME', 'sqli_training_db');
 
 // Application settings
-define('APP_NAME', 'SQL Injection Training Platform');
+define('APP_NAME', 'INSIDER Training Platform');
 define('BASE_URL', 'http://YOUR_SERVER_IP/sql-injection-training');
 
 // Error reporting (enabled for educational purposes)

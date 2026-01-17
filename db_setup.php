@@ -1,7 +1,7 @@
 <?php
 /**
  * Database Setup Script
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  * 
  * This script creates all necessary tables and inserts sample data
  */
@@ -40,7 +40,7 @@ EXIT;</pre>
     }
 }
 
-echo "<h2>SQL Injection Training Platform - Database Setup</h2>";
+echo "<h2>INSIDER Training Platform - Database Setup</h2>";
 
 // Create database if not exists
 $sql = "CREATE DATABASE IF NOT EXISTS " . DB_NAME;

@@ -1,7 +1,7 @@
 <?php
 /**
  * Database Connection Management
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once __DIR__ . '/../config.php';

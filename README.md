@@ -1,4 +1,4 @@
-# SQL Injection Training Platform
+# INSIDER Training Platform
 
 ⚠️ **WARNING: This platform is INTENTIONALLY VULNERABLE for educational purposes. DO NOT USE IN PRODUCTION!**
 
@@ -254,7 +254,7 @@ Add this content:
 ```bash
 #!/bin/bash
 
-echo "Installing SQL Injection Training Platform..."
+echo "Installing INSIDER Training Platform..."
 
 # Update system
 sudo apt update && sudo apt upgrade -y

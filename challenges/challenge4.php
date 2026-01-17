@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenge 4: Time-Based Blind
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

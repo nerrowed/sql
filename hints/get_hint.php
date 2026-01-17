@@ -1,7 +1,7 @@
 <?php
 /**
  * Hint AJAX Endpoint
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';
