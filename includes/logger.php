@@ -8,7 +8,7 @@ require_once __DIR__ . '/db.php';
 
 /**
  * Log user activity
- * @param int $userId User ID
+ * @param int $userId User ID (can be NULL for anonymous)
  * @param string $action Action performed
  * @param string $details Additional details
  */
@@ -18,6 +18,11 @@ function logActivity($userId, $action, $details) {
     $username = $_SESSION['username'] ?? 'anonymous';
     $ip = $_SERVER['REMOTE_ADDR'] ?? 'unknown';
     $userAgent = $_SERVER['HTTP_USER_AGENT'] ?? 'unknown';
+    
+    // Convert 0 to NULL for foreign key constraint
+    if ($userId === 0 || $userId === '0' || empty($userId)) {
+        $userId = null;
+    }
     
     // Use prepared statement for logging (not part of vulnerable training)
     $stmt = $conn->prepare(
