@@ -77,8 +77,7 @@ function displayHeader($title = '') {
     </head>
     <body>
         <div class="warning-banner">
-            ⚠️ <strong>WARNING:</strong> This platform is INTENTIONALLY VULNERABLE for educational purposes. 
-            DO NOT USE THIS CODE IN PRODUCTION!
+            ⚠️ <strong>WARNING:</strong> Pilih jadi heker apa nigger?!
         </div>
         <nav class="navbar">
             <div class="nav-brand"><?php echo APP_NAME; ?></div>
