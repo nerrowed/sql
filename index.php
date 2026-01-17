@@ -15,10 +15,7 @@ displayHeader('Home');
     <p><strong>This platform contains INTENTIONALLY VULNERABLE code for educational purposes.</strong></p>
     <p>This training environment is designed to teach SQL injection techniques in a safe, controlled setting.</p>
     <br>
-    <p><strong style="color: #e74c3c;">DO NOT USE THIS CODE IN PRODUCTION ENVIRONMENTS!</strong></p>
-    <p>All vulnerabilities are intentional and for learning purposes only.</p>
-</div>
-
+    
 <div class="card">
     <h2>Welcome to INSIDER SQL Training Platform</h2>
     <p>This platform provides a hands-on environment to learn about SQL injection vulnerabilities and how to exploit them ethically.</p>
