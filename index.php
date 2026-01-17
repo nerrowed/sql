@@ -11,7 +11,7 @@ displayHeader('Home');
 ?>
 
 <div class="disclaimer-box">
-    <h2>⚠️ IMPORTANT DISCLAIMER ⚠️</h2>
+    <h2>⚠️ HEY ORANG ORANG HITAM ⚠️</h2>
     <p><strong>This platform contains INTENTIONALLY VULNERABLE code for educational purposes.</strong></p>
     <p>This training environment is designed to teach SQL injection techniques in a safe, controlled setting.</p>
     <br>
