@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenges List Page
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

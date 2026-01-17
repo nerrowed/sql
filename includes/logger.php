@@ -1,7 +1,7 @@
 <?php
 /**
  * Activity Logging Functions
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once __DIR__ . '/db.php';

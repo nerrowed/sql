@@ -1,7 +1,7 @@
 <?php
 /**
  * Landing Page with Disclaimer
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once 'config.php';
@@ -20,7 +20,7 @@ displayHeader('Home');
 </div>
 
 <div class="card">
-    <h2>Welcome to SQL Injection Training Platform</h2>
+    <h2>Welcome to INSIDER SQL Training Platform</h2>
     <p>This platform provides a hands-on environment to learn about SQL injection vulnerabilities and how to exploit them ethically.</p>
     
     <h3>What You'll Learn:</h3>

@@ -1,7 +1,7 @@
 <?php
 /**
  * Database Reset Functionality
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

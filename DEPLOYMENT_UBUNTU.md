@@ -1,6 +1,6 @@
 # Deployment Guide - Ubuntu Server
 
-Panduan lengkap untuk deploy SQL Injection Training Platform di Ubuntu Server.
+Panduan lengkap untuk deploy INSIDER Training Platform di Ubuntu Server.
 
 ## 📋 Prerequisites
 
@@ -183,7 +183,7 @@ define('DB_PASS', 'training_password');  // Ganti dengan password yang kamu set
 define('DB_NAME', 'sqli_training_db');
 
 // Application settings
-define('APP_NAME', 'SQL Injection Training Platform');
+define('APP_NAME', 'INSIDER Training Platform');
 define('BASE_URL', 'http://YOUR_SERVER_IP/sql-injection-training');  // Ganti dengan IP server kamu
 ```
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * Challenge 3: Blind Injection
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

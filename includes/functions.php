@@ -1,7 +1,7 @@
 <?php
 /**
  * Utility Functions
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 /**
@@ -108,7 +108,7 @@ function displayFooter() {
     ?>
         </div>
         <footer class="footer">
-            <p>&copy; 2026 SQL Injection Training Platform - For Educational Purposes Only</p>
+            <p>&copy; 2026 INSIDER Training Platform - For Educational Purposes Only</p>
             <p><a href="<?php echo BASE_URL; ?>/docs/techniques.php">SQL Injection Techniques</a> | 
                <a href="<?php echo BASE_URL; ?>/docs/secure_examples.php">Secure Code Examples</a></p>
         </footer>

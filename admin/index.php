@@ -1,7 +1,7 @@
 <?php
 /**
  * Admin Dashboard
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

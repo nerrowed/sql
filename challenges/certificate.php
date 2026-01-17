@@ -1,7 +1,7 @@
 <?php
 /**
  * Completion Certificate
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  */
 
 require_once '../config.php';

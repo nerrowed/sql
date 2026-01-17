@@ -1,7 +1,7 @@
 <?php
 /**
  * Database Configuration
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  * 
  * WARNING: This is for EDUCATIONAL PURPOSES ONLY
  * DO NOT USE IN PRODUCTION
@@ -14,7 +14,7 @@ define('DB_PASS', 'sqli123');
 define('DB_NAME', 'sqli_lab');
 
 // Application settings
-define('APP_NAME', 'SQL Injection Training Platform');
+define('APP_NAME', 'INSIDER Training Platform');
 define('BASE_URL', '/sql');
 
 // Error reporting (enabled for educational purposes)

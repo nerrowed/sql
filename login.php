@@ -1,7 +1,7 @@
 <?php
 /**
  * Vulnerable Login Page
- * SQL Injection Training Platform
+ * INSIDER Training Platform
  * 
  * WARNING: This code is INTENTIONALLY VULNERABLE for educational purposes
  * DO NOT USE IN PRODUCTION!
