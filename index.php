@@ -41,9 +41,8 @@ displayHeader('Home');
         <li>Progress tracking and completion certificates</li>
     </ul>
     
-    <h3>Getting Started:</h3>
+    <h3>GET STARTED:</h3>
     <ol>
-        <li>If this is your first time, <a href="db_setup.php">run the database setup</a></li>
         <li><a href="login.php">Login</a> with one of the test accounts</li>
         <li>Navigate to <a href="challenges/index.php">Challenges</a> to start learning</li>
         <li>Use the <a href="docs/techniques.php">SQL Injection Techniques</a> guide for reference</li>
@@ -84,7 +83,6 @@ displayHeader('Home');
             <a href="search.php" class="btn btn-success">Try Search Feature</a>
         <?php else: ?>
             <a href="login.php" class="btn btn-primary">Login to Start</a>
-            <a href="db_setup.php" class="btn btn-warning">Setup Database</a>
         <?php endif; ?>
     </div>
 </div>
@@ -99,7 +97,6 @@ displayHeader('Home');
         <li>Respect privacy and data protection laws</li>
         <li>Use your skills to improve security, not to cause harm</li>
     </ul>
-    <p><strong>Unauthorized access to computer systems is illegal and punishable by law.</strong></p>
 </div>
 
 <div class="card">
