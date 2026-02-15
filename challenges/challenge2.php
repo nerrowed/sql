@@ -82,7 +82,6 @@ displayHeader('Challenge 2');
         <button onclick="getHint(<?php echo $challenge_id; ?>, 1)" class="btn btn-warning">Get Hint 1</button>
         <button onclick="getHint(<?php echo $challenge_id; ?>, 2)" class="btn btn-warning">Get Hint 2</button>
         <button onclick="getHint(<?php echo $challenge_id; ?>, 3)" class="btn btn-warning">Get Hint 3</button>
-        <button onclick="getHint(<?php echo $challenge_id; ?>, 4)" class="btn btn-danger">Show Solution</button>
     </div>
 </div>
 

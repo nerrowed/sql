@@ -194,7 +194,7 @@ $sql = "INSERT INTO products (name, description, price, category, stock) VALUES
 ('USB Hub', '7-port USB hub', 300000, 'Electronics', 40),
 ('Cable', 'HDMI cable 2m', 150000, 'Electronics', 100),
 ('Adapter', 'USB-C adapter', 200000, 'Electronics', 60),
-('SECRET_PRODUCT', 'Hidden product with flag: FLAG{union_select_master}', 99999999, 'Hidden', 0)";
+('SECRET_PRODUCT', 'insider{union_select_is_easy}', 99999999, 'Hidden', 0)";
 
 if ($conn->query($sql) === TRUE) {
     echo "<p>✓ Sample products inserted</p>";
