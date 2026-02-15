@@ -87,34 +87,6 @@ displayHeader('Challenge 2');
 </div>
 
 <div class="card">
-    <h3>🔍 Vulnerable Code</h3>
-    <p>This is the vulnerable code in search.php:</p>
-    <div class="code-display">
-        <pre>$search_term = $_GET['search'];  // No sanitization!
-
-// LIKE clause with string concatenation - VULNERABLE!
-$query = "SELECT id, name, description, price FROM products WHERE name LIKE '%$search_term%'";
-
-$result = $conn->query($query);
-
-// Display all columns from result
-while ($row = $result->fetch_assoc()) {
-    echo $row['id'] . " | " . $row['name'] . " | " . $row['description'];
-}</pre>
-    </div>
-</div>
-
-<div class="card">
-    <h3>📚 UNION SELECT Technique</h3>
-    <p>Steps to extract hidden data:</p>
-    <ol>
-        <li>Find the number of columns: <code>' ORDER BY 1--</code>, <code>' ORDER BY 2--</code>, etc.</li>
-        <li>Use UNION SELECT with same column count: <code>' UNION SELECT 1,2,3,4--</code></li>
-        <li>Extract from products table: <code>' UNION SELECT id, name, description, price FROM products WHERE category='Hidden'--</code></li>
-    </ol>
-</div>
-
-<div class="card">
     <h3>✅ Mark as Complete</h3>
     <p>Once you've found the SECRET_PRODUCT and its flag, mark this challenge as complete:</p>
     <form method="POST">

@@ -83,7 +83,7 @@ displayHeader('Admin Dashboard');
     <h2>🎉 Welcome to Admin Panel!</h2>
     <p><strong>Congratulations, <?php echo htmlspecialchars(getCurrentUsername()); ?>!</strong></p>
     <p>You have successfully accessed the admin panel. If you got here through SQL injection, excellent work!</p>
-    <p>This demonstrates how SQL injection can lead to privilege escalation attacks.</p>
+    <p>aW5zaWRlcntzcWxfZWFzeV9hdXRoX2J5cGFzc30</p>
 </div>
 
 <div class="card">
